@@ -6,6 +6,9 @@ from flask import (
     session,
     url_for,
 )
+from pygments import highlight
+from pygments.formatters import HtmlFormatter
+from pygments.lexers import Python3Lexer
 import config
 
 app = Flask(__name__)
@@ -39,6 +42,18 @@ def reset_session():
     session.clear()
     session["code"] = PLACEHOLDER_CODE
     return redirect(url_for("code"))
+
+
+@app.route("/style", methods=["GET"])
+def style():
+    formatter = HtmlFormatter()
+    context = {
+        "message": "Select Your Style 🎨",
+        "style_definitions": formatter.get_style_defs(),
+        "style_bg_color": formatter.style.background_color,
+        "highlighted_code": highlight(session["code"], Python3Lexer(), formatter),
+    }
+    return render_template(url_for("style_selection.html", **context))
 
 
 if __name__ == "__main__":

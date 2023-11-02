@@ -27,7 +27,7 @@ def code():
 
 @app.route("/save_code", methods=["POST"])
 def save_code():
-    session["code"] = request.get("code")
+    session["code"] = request.form.get("code")
     return redirect(url_for("code"))
 
 

@@ -18,9 +18,12 @@ PLACEHOLDER_CODE = "print('Hello, World!')"
 def code():
     if session.get("code") is None:
         session["code"] = PLACEHOLDER_CODE
+    lines = session["code"].split("\n")
     context = {
         "message": "Paste Your Python Code 🐍",
         "code": session["code"],
+        "num_lines": len(lines),
+        "max_chars": len(max(lines, key=len)),
     }
     return render_template("code_input.html", **context)
 
@@ -32,7 +35,7 @@ def save_code():
 
 
 @app.route("/reset_session", methods=["POST"])
-def reset_sesion():
+def reset_session():
     session.clear()
     session["code"] = PLACEHOLDER_CODE
     return redirect(url_for("code"))

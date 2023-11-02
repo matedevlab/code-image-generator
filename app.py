@@ -64,7 +64,10 @@ def style():
 
 @app.route("/save_style", methods=["POST"])
 def save_style():
-    session["style"] = request.form.get("style")
+    if request.form.get("style") is not None:
+        session["style"] = request.form.get("style")
+    if request.form.get("code") is not None:
+        session["code"] = request.form.get("code")
     return redirect(url_for("style"))
 
 

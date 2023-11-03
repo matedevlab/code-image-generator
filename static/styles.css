@@ -65,7 +65,7 @@ select {
 
 .code-picture img {
   margin: 1em 0;
-  border: 1px solid #cecece;
+  border: 2px solid #cecece;
   max-width: 80%;
   padding: 1em;
 }

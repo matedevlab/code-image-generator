@@ -8,7 +8,7 @@ def take_screenshot_from_url(url, session_data):
         browser_context.add_cookies([session_data])
         page = browser_context.new_page()
         page.goto(url)
-        page.wait_for_selector(".code")
-        screenshot_bytes = page.screenshot()
+        code_element = page.wait_for_selector(".code")
+        screenshot_bytes = code_element.screenshot()
         browser.close()
         return screenshot_bytes

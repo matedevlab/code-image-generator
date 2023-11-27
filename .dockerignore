@@ -1,0 +1,12 @@
+__pycache__/
+tests/
+.git*
+venv/
+config.py
+setup.sh
+*.pyc
+*.pyo
+*.pyd
+.env
+*.swp
+README.md

@@ -81,7 +81,7 @@ def image():
         "value": request.cookies.get(app.config["SESSION_COOKIE_NAME"]),
         "url": request.host_url,
     }
-    target_url = request.host_url + url_for("style")
+    target_url = request.host_url.rstrip("/") + url_for("style")
     image_bytes = take_screenshot_from_url(target_url, session_data)
     context = {
         "message": "Done! 🎉",

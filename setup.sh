@@ -12,5 +12,5 @@ pip3 install -r requirements.txt
 # Install Playwright browser binaries
 python3 -m playwright install
 
-# Create a config.py file with SECRET_KEY
-echo "SECRET_KEY = '$(python -c 'import secrets; print(secrets.token_hex(16))')'" > config.py
+# Generate a secret key and write it to .env file
+echo "SECRET_KEY=$(python -c 'import secrets; print(secrets.token_hex(16))')" > .env

@@ -1,6 +1,6 @@
 # code-image-generator
 
-You can paste the python code and select a theme and generate an image from the pasted styled code snippet
+You can paste the python code and select a theme and generate an image from the styled code snippet
 
 ## Steps
 
@@ -15,4 +15,9 @@ You can paste the python code and select a theme and generate an image from the 
    - "source venv/bin/activate"
 
 4. Run the app
-   - "python app.py"
+
+   - gunicorn -k gevent -w 1 -b localhost:5000 app:app
+
+5. Go to http://127.0.0.1:5000
+
+   - Happy styling and image creation

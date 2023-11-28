@@ -1,14 +1,19 @@
+from gevent import monkey
+
+monkey.patch_all()
 from playwright.sync_api import sync_playwright
 
 
 def take_screenshot_from_url(url, session_data):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
-        browser_context = browser.new_context(device_scale_factor=2)
-        browser_context.add_cookies([session_data])
-        page = browser_context.new_page()
-        page.goto(url)
-        code_element = page.wait_for_selector(".code")
+        context = browser.new_context(device_scale_factor=2)
+        page = context.new_page()
+        context.add_cookies([session_data])
+        page.goto(url, timeout=30000)
+        code_element = page.wait_for_selector(".code", timeout=30000)
         screenshot_bytes = code_element.screenshot()
+        page.close()
+        context.close()
         browser.close()
         return screenshot_bytes

@@ -1,5 +1,7 @@
-import config
+# import config
 import base64
+import os
+from dotenv import load_dotenv
 from flask import (
     Flask,
     redirect,
@@ -14,8 +16,10 @@ from pygments.lexers import Python3Lexer
 from pygments.styles import get_all_styles
 from utils import take_screenshot_from_url
 
+load_dotenv()
+
 app = Flask(__name__)
-app.config.from_object(config)
+app.secret_key = os.environ.get("SECRET_KEY")
 
 PLACEHOLDER_CODE = "print('Hello, World!')"
 DEFAULT_STYLE = "default"

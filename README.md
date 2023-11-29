@@ -15,7 +15,7 @@ The Code Image Generator is a web application that allows users to paste Python 
 ## Running the Application
 
 Run the application using the following command:
-`gunicorn -k gevent -w 1 -b localhost:5000 app:app`
+`gunicorn -k gevent -w 2 -b localhost:5000 application.app:app`
 
 This command starts the Flask application with Gunicorn as the WSGI server.
 

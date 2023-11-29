@@ -1,23 +1,24 @@
-# code-image-generator
+# Create image form code
 
-You can paste the python code and select a theme and generate an image from the styled code snippet
+The Code Image Generator is a web application that allows users to paste Python code, select a theme, and generate an image from the styled code snippet. This tool is perfect for developers who want to share their code in a visually appealing way.
 
-## Steps
+## Prerequisites
 
-1. Navigate to the project directory in terminal
+- Python 3.10
 
-2. Run setup.sh to create the virtual environment and download the dependencies
+## Setup Instructions
 
-   - "./setup.sh"
+1. Navigate to the project directory in the terminal.
+2. Run `./setup.sh` to set up the virtual environment, install dependencies, and generate a secret key in the `.env` file.
+3. Activate the virtual environment with `source venv/bin/activate`.
 
-3. Activate the virtual environment
+## Running the Application
 
-   - "source venv/bin/activate"
+Run the application using the following command:
+`gunicorn -k gevent -w 1 -b localhost:5000 app:app`
 
-4. Run the app
+This command starts the Flask application with Gunicorn as the WSGI server.
 
-   - gunicorn -k gevent -w 1 -b localhost:5000 app:app
+## Usage
 
-5. Go to http://127.0.0.1:5000
-
-   - Happy styling and image creation
+After starting the application, navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000) to start using the Code Image Generator.

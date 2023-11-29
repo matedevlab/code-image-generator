@@ -1,4 +1,3 @@
-# import config
 import base64
 import os
 from dotenv import load_dotenv
@@ -14,7 +13,7 @@ from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import Python3Lexer
 from pygments.styles import get_all_styles
-from utils import take_screenshot_from_url
+from application.utils import take_screenshot_from_url
 
 load_dotenv()
 

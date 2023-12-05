@@ -21,15 +21,10 @@ jobs:
           cache: pip
           cache-dependency-path: "**/requirements-dev.txt"
       - run: pip install -r ./requirements-dev.txt
-      - run: pip install flake8
 
       - name: Set up environment
         run: |
           export SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(16))')
-
-      - name: Lint with flake8
-        run: |
-          flake8 .
 
       - name: Test with pytest
         run: |

@@ -80,12 +80,16 @@ def save_style():
 @app.route("/image", methods=["GET"])
 def image():
     try:
+        base_url = request.host_url.rstrip("/")
+        if os.environ.get("DOCKER_ENV"):
+            base_url = "http://web_application:5000"
+
+        target_url = base_url + url_for("style")
         session_data = {
             "name": app.config["SESSION_COOKIE_NAME"],
             "value": request.cookies.get(app.config["SESSION_COOKIE_NAME"]),
-            "url": request.host_url,
+            "url": base_url,
         }
-        target_url = request.host_url.rstrip("/") + url_for("style")
         image_bytes = take_screenshot_from_url(target_url, session_data)
         context = {
             "message": "Done! 🎉",

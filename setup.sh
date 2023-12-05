@@ -4,7 +4,7 @@
 python3 -m venv venv
 
 # Install dependencies from requirements.txt
-venv/bin/pip3 install -r requirements.txt
+venv/bin/pip3 install -r requirements-dev.txt
 
 # Install Playwright browser binaries
 venv/bin/python3 -m playwright install

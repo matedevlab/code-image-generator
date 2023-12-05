@@ -1,0 +1,30 @@
+name: Create Release
+
+on:
+  workflow_run:
+    workflows: ["Test"]
+    types:
+      - completed
+
+jobs:
+  create-release:
+    if: ${{github.event.workflow_run.conclusion == 'success'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.event.workflow_run.head_commit.id }}
+          release_name: Release v${{ github.event.workflow_run.head_commit.id }}
+          draft: false
+          prerelease: false
+
+      - name: Output release URL
+        run: |
+          - echo "Release URL: ${{ steps.create_release.outputs.html_url }}"

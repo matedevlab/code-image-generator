@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web_application:
+    build:
+      context: .
+      dockerfile: app.Dockerfile
+    ports:
+      - "8000:5000"
+    environment:
+      - DOCKER_ENV=1
+    

@@ -67,4 +67,14 @@ After starting the application, navigate to [http://127.0.0.1:5000](http://127.0
    - Navigate to "Settings" > "Secrets and varibales" > "Actions".
    - Add "New repository secret" (e.g., GCP_CREDENTIALS) and paste the content of the JSON key file you downloaded.
 
-test2
+## Create Artifact Registry to store the docker images
+
+1. Navigato to "Artifact Registry"
+2. On the top of the page click the "+" sign to create new repository
+3. Give a name
+4. Format: Docker
+5. Mode: Standard
+6. Location type: Region (choose the closest to you)
+7. Encryption: Google-managed encryption key
+8. Cleanup policies: Dry run
+9. Create

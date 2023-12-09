@@ -32,5 +32,5 @@ jobs:
           context: .
           file: ./app.Dockerfile
           # Add caching for Docker builds (if applicable)
-          cache-from: type=registry,source=gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
-          cache-to: type=inline
+          # cache-from: type=registry,source=gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
+          # cache-to: type=inline

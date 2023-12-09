@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v2.5.0
         with:
           push: true
-          tags: gcr.io/${{ secrets.ARTIFACT_REGISTRY_PATH }}:${{ github.event.release.tag_name }}
+          tags: europe-central2-docker.pkg.dev/inspired-carver-396617/code-to-image-generator/code-image-generator:${{ github.event.release.tag_name }}
           context: .
           file: ./app.Dockerfile
           # Add caching for Docker builds (if applicable)

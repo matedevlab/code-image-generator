@@ -23,4 +23,46 @@ This command starts the Flask application with Gunicorn as the WSGI server.
 
 After starting the application, navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000) to start using the Code Image Generator.
 
-test3
+# Usage of the Pipeline
+
+## Create Personal Access Token to access the GitHub API to create release
+
+1. Generate Token:
+
+   - Click on your profile in the top right corner
+   - Click "Settings" -> "Developer settings" (the last in the list)
+   - Then "Personal access tokens" -> "Tokens(classic)" -> "Generate new token(classic)"
+   - Give a Note
+   - Select the expiration time
+   - Tick the "repo" box -> Generate token -> copy and save the token
+
+2. Add the Token to GitHub Secrets:
+
+   - Go to your GitHub repository.
+   - Navigate to "Settings" > "Secrets and varibales" > "Actions".
+   - Add "New repository secret" (e.g., RELEASE_PAT) and paste the Token.
+
+## Creating and Configuring a Service Account in GCP
+
+1. Create a Service Account:
+
+   - Go to the Google Cloud Console.
+   - Navigate to "IAM & Admin" > "Service Accounts".
+   - Create a new service account with a descriptive name.
+
+2. Assign Roles:
+
+   - Assign the "Artifact Registry Writer" role to this service account. This role will allow it to push images to the Artifact Registry.
+
+3. Create a JSON Key:
+
+   - In the service account details, go to the "Keys" section.
+   - Create a new key of type JSON. Download this key, as you will need it for your GitHub repository.
+
+## Configuring GitHub Repository Secrets
+
+1. Add the JSON Key to GitHub Secrets:
+
+   - Go to your GitHub repository.
+   - Navigate to "Settings" > "Secrets and varibales" > "Actions".
+   - Add "New repository secret" (e.g., GCP_CREDENTIALS) and paste the content of the JSON key file you downloaded.

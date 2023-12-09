@@ -13,7 +13,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v1.0.2
+        with:
+          driver-opts: image=moby/buildkit:buildx-stable-1
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0.4.0
@@ -24,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v2.5.0
         with:
           push: true
-          tags: europe-central2-docker.pkg.dev/inspired-carver-396617/code-to-image-generator/code-image-generator:${{ github.event.release.tag_name }}
+          tags: ${{ secrets.ARTIFACT_REGISTRY_PATH}}:${{ github.event.release.tag_name }}
           context: .
           file: ./app.Dockerfile
           # Add caching for Docker builds (if applicable)

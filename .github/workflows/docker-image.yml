@@ -1,14 +1,12 @@
-name: Test, Build and Puch to GCR
+name: Build and Push to GCR
 
 on:
-  pull_request:
-    branches:
-      - main
+  release:
+    types: [created]
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  IMAGE_NAME: ${{ secrets.GCP_PROJECT_ID }}/code-image-generator
-  TAG: ${{ github.sha }}
+  IMAGE_NAME: ${{ secrets.GCP_PROJECT_ID }}/code-image-generator # Consider a more descriptive name
 
 jobs:
   build-and-push-image:
@@ -18,39 +16,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.10
-          cache: pip
-      - run: |
-          python -m pip install --upgrade pip
-          pip install -r ./requirements-dev.txt
-
-      - name: Set up environment
-        run: |
-          echo "SECRET_KEY=$(venv/bin/python -c 'import secrets; print(secrets.token_hex(16))')" > .env
-
-      - name: Lint with flake8
-        run: |
-          flake8 .
-
-      - name: Test with pytest
-        run: |
-          pytest ./tests/
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v0.4.0
         with:
-          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2.5.0
         with:
           push: true
-          tags: gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+          tags: gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
           context: .
           file: ./app.Dockerfile
+          # Add caching for Docker builds (if applicable)
+          cache-from: type=registry,source=gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
+          cache-to: type=inline

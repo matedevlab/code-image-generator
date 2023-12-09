@@ -4,10 +4,6 @@ on:
   release:
     types: [created]
 
-env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  IMAGE_NAME: ${{ secrets.GCP_PROJECT_ID }}/code-image-generator # Consider a more descriptive name
-
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -28,9 +24,9 @@ jobs:
         uses: docker/build-push-action@v2.5.0
         with:
           push: true
-          tags: gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
+          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/code-image-generator:${{ github.event.release.tag_name }}
           context: .
           file: ./app.Dockerfile
           # Add caching for Docker builds (if applicable)
-          # cache-from: type=registry,source=gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
+          # cache-from: type=registry,source=gcr.io/${{ secrets.GCP_PROJECT_ID }}/code-image-generator:${{ github.event.release.tag_name }}
           # cache-to: type=inline

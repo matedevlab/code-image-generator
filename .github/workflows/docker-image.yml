@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v2.5.0
         with:
           push: true
-          tags: ${{ secrets.ARTIFACT_REGISTRY_PATH}}:${{ github.event.release.tag_name }}
+          tags: ${{ vars.LOCATION_OF_ARTIFACT_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
           context: .
           file: ./app.Dockerfile

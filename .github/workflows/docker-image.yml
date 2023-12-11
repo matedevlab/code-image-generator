@@ -25,7 +25,7 @@ jobs:
 
       - name: "Docker auth"
         run: |-
-          gcloud auth configure-docker ${{ vars.ARTIFACT_REGISTRY_DOMAIN }} --quiet
+          gcloud auth configure-docker europe-central2-docker.pkg.dev --quiet
 
       - name: Build image
         run: docker build . --file ./app.Dockerfile --tag ${{ vars.IMAGE_NAME }}:${{ github.event.release.tag_name }}

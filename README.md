@@ -52,7 +52,7 @@ After starting the application, navigate to [http://127.0.0.1:5000](http://127.0
 
 2. Assign Roles:
 
-   - Assign the "Artifact Registry Writer" role and the "Service Account Token Creator" role to this service account. This role will allow it to push images to the Artifact Registry.
+   - Assign the "Artifact Registry Administrator" role to this service account.
 
 3. Create a JSON Key:
 

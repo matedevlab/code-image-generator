@@ -24,7 +24,7 @@ jobs:
           gcloud auth configure-docker ${{ vars.ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev
 
       - name: Build image
-        run: docker build . --file ./app.Dockerfile --tag ${{ vars.IMAGE_NAME }}:${{ github.event.release.tag_name }}
+        run: docker build . --file ./app.Dockerfile --tag ${{ vars.ARTIFACT_REGISTRY_LOCATION }}/${{ vars.IMAGE_NAME }}:${{ github.event.release.tag_name }}
 
       - name: Push image
         run: docker push ${{ vars.ARTIFACT_REGISTRY_LOCATION }}/${{ vars.IMAGE_NAME }}:${{ github.event.release.tag_name }}

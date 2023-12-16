@@ -10,4 +10,4 @@ fi
 : ${WORKERS:=2}
 
 # Start Gunicorn
-exec gunicorn -k gevent -w ${WORKERS} -b 0.0.0.0:5000 application.app:app
+exec gunicorn -k gevent -w ${WORKERS} -b 0.0.0.0:8080 application.app:app

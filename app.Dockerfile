@@ -16,8 +16,8 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 # Install any needed packages specified in requirements-prod.txt
 RUN python3 -m pip install --no-cache-dir -r requirements-prod.txt
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
 
 # Set the script as the entrypoint
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

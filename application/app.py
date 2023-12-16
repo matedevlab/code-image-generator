@@ -82,7 +82,7 @@ def image():
     try:
         base_url = request.host_url.rstrip("/")
         if os.environ.get("DOCKER_ENV"):
-            base_url = "http://web_application:5000"
+            base_url = "http://localhost:8080"
 
         target_url = base_url + url_for("style")
         session_data = {

@@ -1,7 +1,7 @@
+from playwright.sync_api import sync_playwright
 from gevent import monkey
 
 monkey.patch_all()
-from playwright.sync_api import sync_playwright
 
 
 def take_screenshot_from_url(url, session_data):

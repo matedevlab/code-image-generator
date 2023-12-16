@@ -11,5 +11,7 @@ README.md
 docker-compose.yml
 app.Dockerfile
 tests/
+infrastructure/
 .git*
 requirements-dev.txt
+inspired*

@@ -83,6 +83,10 @@ def image():
         base_url = request.host_url.rstrip("/")
         if os.environ.get("DOCKER_ENV"):
             base_url = "http://localhost:8080"
+        if os.environ.get("GAE_ENV"):
+            gae_application = os.environ.get("GAE_APPLICATION", "")
+            project_id, region_id = gae_application.split("~")
+            base_url = f"http://{project_id}.lm.r.appspot.com"
 
         target_url = base_url + url_for("style")
         session_data = {

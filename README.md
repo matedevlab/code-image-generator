@@ -5,6 +5,8 @@ The Code Image Generator is a web application that allows users to paste Python 
 ## Prerequisites
 
 - Python 3.10
+- Docker
+- Docker Compose
 
 ## Setup Instructions
 
@@ -15,13 +17,11 @@ The Code Image Generator is a web application that allows users to paste Python 
 ## Running the Application
 
 Run the application using the following command:
-`gunicorn -k gevent -w 2 -b localhost:5000 application.app:app`
-
-This command starts the Flask application with Gunicorn as the WSGI server.
+`gunicorn -k gevent -w 2 -b localhost:5000 application.app:app` or `docker-compose up --build -d`
 
 ## Usage
 
-After starting the application, navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000) to start using the Code Image Generator.
+After starting the application, navigate to [http://127.0.0.1:8000](http://127.0.0.1:8000) to start using the Code Image Generator.
 
 # Usage of the Pipeline
 
@@ -52,20 +52,18 @@ After starting the application, navigate to [http://127.0.0.1:5000](http://127.0
 
 2. Assign Roles:
 
-   - Assign the "Artifact Registry Administrator" role to this service account.
+   - Assign the "Artifact Registry Administrator", "Service Account Token Creator", "App Engine Admin", "Storage Object Admin", "Service Account User" role to this service account.
 
 3. Create a JSON Key:
 
    - In the service account details, go to the "Keys" section.
    - Create a new key of type JSON. Download this key, as you will need it for your GitHub repository.
 
-## Configuring GitHub Repository Secrets
-
-1. Add the JSON Key to GitHub Secrets:
+4. Add the JSON Key to GitHub Secrets:
 
    - Go to your GitHub repository.
    - Navigate to "Settings" > "Secrets and varibales" > "Actions".
-   - Add "New repository secret" (e.g., GCP_CREDENTIALS) and paste the content of the JSON key file you downloaded.
+   - Add "New repository secret" (e.g., GCP_SERVICE_ACCOUNT_KEY) and paste the content of the JSON key file you downloaded.
 
 ## Create Artifact Registry to store the docker images
 
@@ -78,5 +76,34 @@ After starting the application, navigate to [http://127.0.0.1:5000](http://127.0
 7. Encryption: Google-managed encryption key
 8. Cleanup policies: Dry run
 9. Create
+
+## Create a Cloud Storage Bucket to store the Terraform state file
+
+1. Navigate to the Cloud Storage
+2. Create Bucket
+3. Choose a unique name
+4. Select Region (whatevre you want)
+5. Set Standard as storage class
+6. Enable "Enforce public access prevention on this bucket" and select Uniform
+7. Select Object versioning and set "Max. number of versions per object" to 1 and "Expire noncurrent versions after" to 7
+
+## Create App Engine application
+
+1. Select the region
+2. Select the already created service account
+
+## Set Google service account json key for local running the infrastructure
+
+1. Open .bashrc or .zshrc file: `nano ~/.bashrc` or `nano ~/.zshrc`
+2. Add the Export command: `export GOOGLE_APPLICATION_CREDENTIALS="/path/of/your/service-account-key.json"`
+3. Reload the Zsh/Bash configuration: `source ~/.zshrc` or `source ~/.bashrc`
+4. Now you can run `terraform init` from the infrastructure folder to initialize the GCS backend
+
+## Enable Google cloud APIs
+
+1. Enable "Artifact Registry API"
+2. Enable "Storage Insights API"
+3. Enable "App Engine Admin API"
+4. Enable "Google App Engine Flexible Environment"
 
 test3

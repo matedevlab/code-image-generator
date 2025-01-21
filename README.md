@@ -1,6 +1,6 @@
 # Create image from code
 
-The Code Image Generator is a web application that allows users to paste Python code, select a theme, and generate an image from the styled code snippet. This tool is perfect for developers who want to share their code in a visually appealing way.
+The Code Image Generator allows users to paste Python code, select a theme, and generate an image from the styled code snippet. This tool is perfect for developers who want to share their code in a visually appealing way.
 
 ## Prerequisites
 
